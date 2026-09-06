@@ -1,0 +1,18 @@
+class Solution {
+public:
+int helper(vector<int>&nums,int i,int j,vector<vector<int>>&dp){
+    if(i==nums.size())return 0;
+    if(dp[i][j+1]!=-1)return dp[i][j+1];
+    int notake=helper(nums,i+1,j,dp);
+    int take=0;
+    if(j==-1||nums[i]>nums[j]){
+        take=1+helper(nums,i+1,i,dp);
+    }
+    return dp[i][j+1]=max(take,notake);
+}
+    int lengthOfLIS(vector<int>& nums) {
+        int n=nums.size();
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        return helper(nums,0,-1,dp);
+    }
+};
